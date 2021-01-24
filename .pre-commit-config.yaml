@@ -1,0 +1,22 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+    - id: check-yaml
+    - id: debug-statements
+- repo: https://github.com/pycqa/isort
+  rev: 5.5.2
+  hooks:
+    - id: isort
+- repo: https://github.com/ambv/black
+  rev: 20.8b1
+  hooks:
+    - id: black
+#- repo: local
+#  hooks:
+#    - id: pytest-check
+#      name: pytest-check
+#      entry: poetry run python -m pytest tests -v
+#      language: system
+#      pass_filenames: false
+#      always_run: true
