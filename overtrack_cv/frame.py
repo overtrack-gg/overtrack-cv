@@ -1,12 +1,11 @@
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from datetime import datetime
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
 import cv2
 import numpy as np
 
-from overtrack_cv.games.apex.apex_frame_data import ApexFrameData
 from overtrack_cv.util import s2ts
 
 _init_time = time.time()
@@ -30,18 +29,19 @@ class CurrentGame:
     __repr__ = __str__
 
 
-class Timings(Dict[str, float]):
-    @property
-    def total(self) -> float:
-        return sum([v for k, v in self.items() if k not in ["wait", "fetch", "in_queue"]])
+def die(f):
+    raise ValueError(f"DONT USE {f.name}")
 
-    def __setitem__(self, key: str, value: float) -> None:
-        super().__setitem__(key, round(value, 3))
 
-    def __str__(self) -> str:
-        return str({k: round(v, 3) for k, v in dict(TOTAL=self.total, **self).items()})
+_DIE = []
+from overtrack_cv.games.apex.apex_frame_data import ApexFrameData
 
-    __repr__ = __str__
+for f in fields(ApexFrameData):
+    _DIE.append(f.name)
+from overtrack_cv_private.games.overwatch.overwatch_frame_data import OverwatchFrameData
+
+for f in fields(OverwatchFrameData):
+    _DIE.append(f.name)
 
 
 class Frame(Dict[str, Any]):
@@ -55,7 +55,7 @@ class Frame(Dict[str, Any]):
         if "_image_yuv" not in kwargs:
             self._image_yuv: Optional[np.ndarray] = None
 
-        self.apex = ApexFrameData()
+        # self.apex = ApexFrameData()
 
     # typing hints - access to fields is through object-level dict or __getattr__
     if TYPE_CHECKING:
@@ -68,12 +68,27 @@ class Frame(Dict[str, Any]):
         current_game: CurrentGame
 
         frame_no: int
+        valid: Optional[bool]
 
         image: Optional[np.ndarray]
         debug_image: Optional[np.ndarray]
+        _image_yuv: Optional[np.ndarray]
+
+        from overtrack_cv.games.apex.apex_frame_data import ApexFrameData
 
         apex: ApexFrameData
-        timings: Timings
+
+        from overtrack_cv_private.games.overwatch.overwatch_frame_data import (
+            OverwatchFrameData,
+        )
+
+        overwatch: OverwatchFrameData
+
+        from overtrack_cv_private.games.valorant.valorant_frame_data import (
+            ValorantFrameData,
+        )
+
+        valorant: ValorantFrameData
 
     @classmethod
     def create(
@@ -92,7 +107,7 @@ class Frame(Dict[str, Any]):
 
         f = cls.__new__(cls)
         f.image = image
-        f._image_yuv: Optional[np.ndarray] = None
+        f._image_yuv = None
 
         f.timestamp = timestamp
         f.timestamp_str = (
@@ -106,7 +121,6 @@ class Frame(Dict[str, Any]):
         f.relative_timestamp = relative_timestamp
         f.relative_timestamp_str = f"{s2ts(relative_timestamp)}." + f"{relative_timestamp % 1 :.2f}"[2:]
 
-        f.timings = Timings(**timings if timings else {})
         if debug:
             f.debug_image = image.copy()
 
@@ -136,7 +150,7 @@ class Frame(Dict[str, Any]):
             f.debug_image = None
         f.update(data)
 
-        f.apex = ApexFrameData()
+        # f.apex = ApexFrameData()
 
         return f
 
@@ -165,15 +179,26 @@ class Frame(Dict[str, Any]):
             super().__setitem__("_image_yuv", cv2.cvtColor(self.image, cv2.COLOR_BGR2YUV))
         return self._image_yuv
 
+    def __contains__(self, item):
+        if item in _DIE:
+            raise AttributeError(f"Frame no longer supports {item}")
+        return super().__contains__(item)
+
     def __getattr__(self, item: str) -> Any:
+        if item in _DIE:
+            raise AttributeError(f"Frame no longer supports {item}")
         if item not in self:
             raise AttributeError("Frame does not (yet?) have attribute %r" % (item,))
         return self[item]
 
     def __setattr__(self, key: str, value: Any) -> None:
+        if key in _DIE:
+            raise AttributeError(f"Frame no longer supports {key}")
         self.__setitem__(key, value)
 
     def __setitem__(self, key: str, value: Any) -> None:
+        if key in _DIE:
+            raise AttributeError(f"Frame no longer supports {key}")
         if key in self:
             raise ValueError(f'Cannot add item "{ key }": already exists')
         super().__setitem__(key, value)

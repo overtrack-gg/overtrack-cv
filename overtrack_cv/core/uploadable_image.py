@@ -94,8 +94,8 @@ class UploadableImage:
     __repr__ = __str__
 
     def _typeddump(self) -> Dict:
-        if self.url is None:
-            logger.warning(f"Dumping image {self} before it is uploaded")
+        # if self.url is None:
+        #     logger.warning(f"Dumping image {self} before it is uploaded")
         return {"key": self.key, "url": self.url, "timestamps": self.timestamps}
 
 

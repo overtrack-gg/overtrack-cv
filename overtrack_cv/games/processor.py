@@ -10,8 +10,8 @@ from overtrack_cv.frame import Frame
 # TODO: Exception recording as part of processor tracing
 @dataclass
 class ProcessorTracing:
-    name: str
-    qualname: str
+    name: str  # TODO: support naming processors
+    type: str
     duration: float
     result: bool
     subprocessors: Optional[List["ProcessorTracing"]] = None
@@ -25,7 +25,7 @@ class Processor:
         t1 = time.perf_counter()
         return ProcessorTracing(
             name=self.__class__.__name__,
-            qualname=self.__class__.__qualname__,
+            type=self.__class__.__qualname__,
             duration=round(t1 - t0, 4),
             result=r,
         )
@@ -56,7 +56,7 @@ class OrderedProcessor(Processor):
         t1 = time.perf_counter()
         return ProcessorTracing(
             name=self.__class__.__name__,
-            qualname=self.__class__.__qualname__,
+            type=self.__class__.__qualname__,
             duration=round(t1 - t0, 4),
             result=self.condition([sp.result for sp in subprocessors]),
             subprocessors=subprocessors,
@@ -129,7 +129,7 @@ class ConditionalProcessor(Processor):
             r = False
         return ProcessorTracing(
             name=self.__class__.__name__,
-            qualname=self.__class__.__qualname__,
+            type=self.__class__.__qualname__,
             duration=round(t, 4),
             result=r,
             subprocessors=subprocessors,
@@ -188,7 +188,7 @@ class ShortCircuitProcessor(Processor):
                 break
         return ProcessorTracing(
             name=self.__class__.__name__,
-            qualname=self.__class__.__qualname__,
+            type=self.__class__.__qualname__,
             duration=round(time.perf_counter() - t0, 4),
             result=bailed,
             subprocessors=subprocessors,
@@ -256,7 +256,7 @@ class EveryN(Processor):
             r = False
         return ProcessorTracing(
             name=self.__class__.__name__,
-            qualname=self.__class__.__qualname__,
+            type=self.__class__.__qualname__,
             duration=round(time.perf_counter() - t0, 4),
             result=r,
             subprocessors=subprocessors,

@@ -27,8 +27,6 @@ import tesserocr
 if TYPE_CHECKING:
     from overtrack_cv.core.region_extraction import ExtractionRegionsCollection
     from overtrack_cv.frame import Frame
-else:
-    ExtractionRegionsCollection = Frame = object
 
 
 logger = logging.getLogger(__name__)
@@ -344,7 +342,7 @@ def imread(path: str, mode: Optional[int] = None) -> np.ndarray:
         if os.path.exists(path):
             raise ValueError(f"Unable to read {path} as an image")
         else:
-            raise FileNotFoundError(path)
+            raise FileNotFoundError(os.path.abspath(path))
     else:
         return im
 
@@ -516,8 +514,8 @@ def match_thresh_template(
 
 
 def ocr_region(
-    frame: Frame,
-    regions: ExtractionRegionsCollection,
+    frame: "Frame",
+    regions: "ExtractionRegionsCollection",
     region: str,
     engine: tesserocr.PyTessBaseAPI = tesseract_lstm,
     threshold: Optional[int] = 50,

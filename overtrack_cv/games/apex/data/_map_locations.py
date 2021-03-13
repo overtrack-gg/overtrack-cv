@@ -45,10 +45,11 @@ class MapLocations:
     def get_location_name(self, location: Tuple[int, int]) -> str:
         self._ensure_loaded()
         assert self.layers is not None
-        for name, mask in self.layers:
-            if mask[location[1], location[0]]:
-                # logger.info(f'Resolving {location} -> {name}')
-                return name
+        if 0 <= location[1] < self.layers[0][1].shape[0] and 0 <= location[0] < self.layers[0][1].shape[1]:
+            for name, mask in self.layers:
+                if mask[location[1], location[0]]:
+                    # logger.info(f'Resolving {location} -> {name}')
+                    return name
         # logger.warning(f'Unable to resolve {location}')
         return "Unknown"
 

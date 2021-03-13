@@ -6,7 +6,7 @@ from typing import Any, DefaultDict, Deque, List, Optional, Tuple
 import numpy as np
 import tabulate
 
-from overtrack_cv.frame import Timings
+from overtrack_cv.games.processor import ProcessorTracing
 
 
 class PerformanceMonitor:
@@ -14,15 +14,16 @@ class PerformanceMonitor:
     logger = logging.getLogger("PerformanceMonitor")
 
     def __init__(self, fps: float, report_frequency: float = 60, minutes: int = 5):
-        self.perf: Deque[Tuple[float, Timings, Optional[int]]] = deque(maxlen=int(fps * 60 * minutes))
+        self.perf: Deque[Tuple[float, ProcessorTracing, Optional[int]]] = deque(maxlen=int(fps * 60 * minutes))
         self.report_frequency = report_frequency
         self.last_shown: float = time.time()
 
-    def submit(self, t: Timings, qsize: Optional[int] = None) -> None:
+    def submit(self, t: ProcessorTracing, qsize: Optional[int] = None) -> None:
         self.perf.append((time.time(), t, qsize))
         if time.time() - self.last_shown > self.report_frequency:
             self.last_shown = time.time()
-            self.report()
+            # FIXME
+            # self.report()
 
     def report(self) -> None:
         values: DefaultDict[str, List[float]] = defaultdict(list)

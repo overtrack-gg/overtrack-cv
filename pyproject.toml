@@ -9,14 +9,16 @@ python = "^3.7.4"
 tabulate = "^0.8.7"
 
 opencv-python = "^4.0"
-tesserocr = {url = "https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.4.0-tesseract-4.0.0/tesserocr-2.4.0-cp37-cp37m-win_amd64.whl"}
+tesserocr = {url = "https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.4.0-tesseract-4.0.0/tesserocr-2.4.0-cp37-cp37m-win_amd64.whl"}  # on linux/mac, simply using tesserocr from pypi works
 python-Levenshtein = "^0.12.1"
 requests = "^2.25.1"
 tflit = "^0.0.16"
+tqdm = "^4.57.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
 isort = "^5.7.0"
+matplotlib = "^3.3.4"
 
 [tool.black]
 line-length = 115

@@ -24,4 +24,6 @@ champions = {
     "revenant": Champion("Revenant"),
     "loba": Champion("Loba"),
     "rampart": Champion("Rampart"),
+    "horizon": Champion("Horizon"),
+    "fuse": Champion("Fuse"),
 }
