@@ -196,7 +196,13 @@ class SquadSummaryProcessor(Processor):
                 value = value.lower().replace(" ", "")
                 for c1, c2 in "l1", "i1", "o0", (":", ""):
                     value = value.replace(c1, c2)
-            if 6 <= i <= 8:
+            if i <= 3:
+                try:
+                    stats[i] = tuple([int(v) for v in value.split("/")])
+                except ValueError as e:
+                    logger.warning(f'Could not parse {value!r} as 3 ints" {e}')
+                    stats[i] = None
+            elif 6 <= i <= 8:
                 # survival time
                 if stats[i] is not None:
                     seconds_s = value.replace(":", "")
@@ -220,6 +226,17 @@ class SquadSummaryProcessor(Processor):
         # noinspection PyTypeChecker
         count = 3 if not duos else 2
         r = tuple([PlayerStats(names[i], *stats[i::count]) for i in range(count)])
+
+        for s in r:
+            if not s.kills:
+                pass
+            elif len(s.kills) == 3:
+                s.assists = s.kills[1]
+                s.knocks = s.kills[2]
+                s.kills = s.kills[0]
+            else:
+                s.kills = s.kills[0]
+
         logger.info(f"Got {pprint.pformat(r)}")
         return r
 
@@ -240,7 +257,6 @@ if __name__ == "__main__":
     from overtrack_cv.util.test_processor import test_processor
 
     test_processor(
-        "squad_summary",
         SquadSummaryProcessor(),
         "squad_summary",
         "squad_summary_match",

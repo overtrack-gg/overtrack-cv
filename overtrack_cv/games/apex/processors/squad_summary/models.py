@@ -14,6 +14,9 @@ class PlayerStats:
     players_revived: Optional[int]
     players_respawned: Optional[int]
 
+    assists: Optional[int] = None
+    knocks: Optional[int] = None
+
 
 @dataclass
 class SquadSummary:
