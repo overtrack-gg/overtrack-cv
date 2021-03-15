@@ -37,6 +37,7 @@ _season_5_start = datetime.datetime.strptime(
 ).replace(tzinfo=_PDT)
 _season_6_start = datetime.datetime.strptime("Aug 18 2020 10:00AM", "%b %d %Y %I:%M%p").replace(tzinfo=_PDT)
 _season_7_start = datetime.datetime.strptime("Nov 10 2020 10:00AM", "%b %d %Y %I:%M%p").replace(tzinfo=_PDT)
+_season_8_start = datetime.datetime.strptime("Mar 1 2021 10:00AM", "%b %d %Y %I:%M%p").replace(tzinfo=_PDT)
 
 seasons = [
     Season(0, 0, _season_1_start.timestamp(), has_ranked=False),
@@ -46,7 +47,8 @@ seasons = [
     Season(4, _season_4_start.timestamp(), _season_5_start.timestamp()),
     Season(5, _season_5_start.timestamp(), _season_6_start.timestamp()),
     Season(6, _season_6_start.timestamp(), _season_7_start.timestamp()),
-    Season(7, _season_7_start.timestamp(), float("inf")),
+    Season(7, _season_7_start.timestamp(), _season_8_start.timestamp()),
+    Season(8, _season_8_start.timestamp(), float("inf")),
     Season(1002, 0, 0, season_name="Season 2 Solos", has_ranked=False),
     Season(
         1003,
