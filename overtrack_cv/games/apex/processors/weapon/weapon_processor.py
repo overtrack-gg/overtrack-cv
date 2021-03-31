@@ -144,7 +144,6 @@ if __name__ == "__main__":
     from overtrack_cv.util.test_processor import test_processor
 
     test_processor(
-        "weapons",
         WeaponProcessor(),
         "weapons",
         game="apex",
