@@ -26,7 +26,7 @@ You can run the processors individually, and they will run against all the scree
     > python squad_summary_processor.py
     > exit
     > # Use `poetry run` instead of launching a shell
-    > cd python squad_summary_processor.py
+    > cd .\overtrack_cv\games\apex\processors\squad_summary
     > poetry run python squad_summary_processor.py
     ```
 * when executing a processor, place any images you want processed into the `samples` directory in that processor directory. After executing, a popup will appear for each screenshot in order, showing you details of all the data identified on that image.
