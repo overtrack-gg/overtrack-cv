@@ -41,22 +41,27 @@ def _draw_coordinates(debug_image: Optional[np.ndarray], coords: Coordinates) ->
 
 
 class CoordinateProcessor(Processor):
-    COORD_PATTERN = re.compile(r"-?[0-9]+\.[0-9]{2}")
+    SINGLE_COORD = r"(-?[0-9]+ [0-9]{2})"
+    COORD_PATTERN = re.compile(" ".join([SINGLE_COORD] * 3))
     OCR = TFLiteSequenceModel(os.path.join(os.path.dirname(__file__), "data", "coordinate_ocr"))
     COORDINATES_TOP = 60
-    SPACE_WIDTH = 12
+    SPACE_WIDTH = 14
 
     def process(self, frame: Frame) -> bool:
-        im = frame.image[self.COORDINATES_TOP : self.COORDINATES_TOP + 13, 40 : 40 + 230]
+        image = getattr(frame, "image_unscaled", frame.image)
+        im = image[self.COORDINATES_TOP : self.COORDINATES_TOP + 13, 45 : 45 + 220]
 
+        # The OCR only reads "-[0-9]" - spaces and decimals are detected by the gap between digits
+        # e.g. -123 45 678 90 -123 45 -> -123.45 678.90 -123.45 -> (-123.45, 678.90, -123.45)
         position = self.OCR.predict(np.expand_dims(im, 0).astype(np.float32))[0]
-        coords = position.words(self.SPACE_WIDTH)
-        if len(coords) == 3 and all(self.COORD_PATTERN.fullmatch(c) for c in coords):
-            frame.apex.coordinates = Coordinates(*[float(c) for c in coords])
+        result = " ".join(position.words(self.SPACE_WIDTH))
+        match = self.COORD_PATTERN.fullmatch(result)
+        if match:
+            frame.apex.coordinates = Coordinates(*[float(c.replace(" ", ".")) for c in match.groups()])
             _draw_coordinates(frame.debug_image, frame.apex.coordinates)
             return True
         # else:
-        #     logger.warninseasong(f"Got invalid coordinates parse: {coords}")
+        #     logger.warning(f"Got invalid coordinates parse: {position.string}")
 
         return False
 
