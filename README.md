@@ -1,3 +1,7 @@
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Discord chat](https://img.shields.io/badge/chat-on_discord-008080.svg?style=flat-square&logo=discord)](https://discord.gg/JywstAB)
+
 # overtrack-cv
 This is the local client code that handles Computer Vision/OCR for OverTrack, plus the game-specific processors that collect data for Apex Legends.
 
@@ -43,3 +47,22 @@ The entire `pipeline` is run on each and every `frame`. We build a list of all f
 The `pipeline` concept captures the fact that often `processors` are exclusive, as they are tracking only during a specific game state (ex: There is no need to track player coordinates while on the menu screen) so these `processors` are children of a `shortcircuit processor`.
 
 A good starting point for understanding how this all works is the `map_loading` processor, found [here](https://github.com/overtrack-gg/overtrack-cv/blob/master/overtrack_cv/games/apex/processors/map_loading/map_loading_processor.py#L24). All this one does is locate the map name on the map loading screen to determine which map the player is about to play on.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://overtrack.gg"><img src="https://avatars0.githubusercontent.com/u/2515062?v=4" width="100px;" alt=""/><br /><sub><b>Simon Pinfold</b></sub></a><br /><a href="https://github.com/overtrack-gg/overtrack-cv/commits?author=synap5e" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
