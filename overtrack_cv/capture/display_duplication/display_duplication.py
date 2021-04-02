@@ -291,12 +291,14 @@ class DisplayDuplicationCapture:
         window_title: Optional[str] = None,
         executable: Optional[str] = None,
         foreground_window_pid: Optional[int] = None,
+        include_unscaled: bool = False,
         debug_frames: bool = False,
     ):
         if self.__class__._active_instance:
             raise ValueError(f"Only one instance of {self.__class__.__name__} can be active at any time")
 
         self.destroyed = False
+        self.include_unscaled = include_unscaled
         self.debug_frames = debug_frames
 
         self.hwnd: Optional[wintypes.HWND]
@@ -672,7 +674,7 @@ class DisplayDuplicationCapture:
 
         return False
 
-    def capture(self, interpolation=cv2.INTER_LINEAR):
+    def capture(self, interpolation=cv2.INTER_LINEAR) -> Tuple[np.ndarray, np.ndarray, bool]:
         if self.destroyed:
             raise ValueError(f"Cannot capture from destroyed {self.__class__.__name__}")
 
@@ -691,21 +693,21 @@ class DisplayDuplicationCapture:
                         negative_level=logging.DEBUG,
                         caller_extra_id=(self.hwnd, self.backoff),
                     )
-                    return zimg, False
+                    return zimg, zimg, False
             else:
-                return zimg, False
+                return zimg, zimg, False
 
         if dpi_detection:
             ctypes.windll.user32.SetThreadDpiAwarenessContext(-3)
 
         if self.check_needs_reset():
             self.ready = False
-            return zimg, False
+            return zimg, zimg, False
         elif self.foreground:
             if not dll.capture():
                 logger.warning(f"Monitor capture failed - resetting")
                 self.ready = False
-                return zimg, False
+                return zimg, zimg, False
             else:
                 screen = self.img.copy()
                 screen = _fix_size(screen)
@@ -718,13 +720,13 @@ class DisplayDuplicationCapture:
                     client_area = self.crop.apply(client_area)
 
                 crop_bars = self.maximised and not self.borderless
-                return resize_to_1080(client_area, crop_bars, interpolation=interpolation), True
+                return client_area, resize_to_1080(client_area, crop_bars, interpolation=interpolation), True
         else:
-            return zimg, False
+            return zimg, zimg, False
 
     def get(self) -> Frame:
         start = time.time()
-        img, valid = self.capture()
+        img, reisized_image, valid = self.capture()
         end = time.time()
 
         if img.shape != (1080, 1920, 4):
@@ -745,7 +747,7 @@ class DisplayDuplicationCapture:
                 img = cv2.copyMakeBorder(img, 0, bpad, 0, rpad, cv2.BORDER_CONSTANT)
 
         f = Frame.create(
-            img[:, :, :3],
+            reisized_image[:, :, :3],
             timestamp=round(start, 2),
             relative_timestamp=round(start - self.created, 2),
             debug=self.debug_frames,
@@ -755,7 +757,8 @@ class DisplayDuplicationCapture:
             source=self.source,
             source_name="Display Duplication",
         )
-        # f.timings[self.__class__.__name__] = (end - start) * 1000
+        if self.include_unscaled:
+            f.image_unscaled = img[:, :, :3]
         return f
 
     def close(self):
