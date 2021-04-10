@@ -62,7 +62,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://overtrack.gg"><img src="https://avatars0.githubusercontent.com/u/2515062?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon Pinfold</b></sub></a><br /><a href="https://github.com/overtrack-gg/overtrack-cv/commits?author=synap5e" title="Code">💻</a> <a href="#design-synap5e" title="Design">🎨</a></td>
-    <td align="center"><a href="https://github.com/brahaney"><img src="https://avatars.githubusercontent.com/u/4593316?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Brahaney</b></sub></a><br /><a href="https://github.com/overtrack-gg/overtrack-cv/commits?author=brahaney" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/brahaney"><img src="https://avatars.githubusercontent.com/u/4593316?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Brahaney</b></sub></a><br /><a href="https://github.com/overtrack-gg/overtrack-cv/commits?author=brahaney" title="Documentation">📖</a> <a href="#data-brahaney" title="Data">🔣</a></td>
   </tr>
 </table>
 
