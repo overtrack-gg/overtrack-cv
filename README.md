@@ -6,6 +6,10 @@
 This is the local client code that handles Computer Vision/OCR for OverTrack, plus the game-specific processors that collect data for Apex Legends.
 
 For more info on using OverTrack, visit [overtrack.gg](https://overtrack.gg/)
+# overtrack-cv
+This is the local client code that handles Computer Vision/OCR for OverTrack, plus the game-specific processors that collect data for Apex Legends.
+
+For more info on using OverTrack, visit [overtrack.gg](https://overtrack.gg/)
 ## Development
 ### Pre-reqs
 * Windows
