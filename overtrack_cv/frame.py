@@ -38,10 +38,17 @@ from overtrack_cv.games.apex.apex_frame_data import ApexFrameData
 
 for f in fields(ApexFrameData):
     _DIE.append(f.name)
-from overtrack_cv_private.games.overwatch.overwatch_frame_data import OverwatchFrameData
 
-for f in fields(OverwatchFrameData):
-    _DIE.append(f.name)
+try:
+    from overtrack_cv_private.games.overwatch.overwatch_frame_data import (
+        OverwatchFrameData,
+    )
+
+    for f in fields(OverwatchFrameData):
+        _DIE.append(f.name)
+except:
+    # If we cant import, dont worry
+    pass
 
 
 class Frame(Dict[str, Any]):

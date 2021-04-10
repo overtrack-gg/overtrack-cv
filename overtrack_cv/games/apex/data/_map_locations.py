@@ -69,3 +69,4 @@ class MapLocations:
 
 kings_canyon_locations = MapLocations("maps/kings_canyon_locations")
 worlds_edge_locations = MapLocations("maps/worlds_edge_locations")
+olympus_locations = MapLocations("maps/olympus_locations")

@@ -363,7 +363,7 @@ def show_ocr_segmentations(names: List[np.ndarray], **kwargs: Any) -> None:
 
 
 def tesser_ocr(im: np.ndarray, vscale: float = 3, **kwargs) -> None:
-    import overtrack.apex.ocr
+    import overtrack_cv.games.apex.ocr
 
     def update(_: int) -> None:
         scale = max(1, cv2.getTrackbarPos("scale", "ocr"))
@@ -381,11 +381,19 @@ def tesser_ocr(im: np.ndarray, vscale: float = 3, **kwargs) -> None:
                 ("tesseract_lstm", imageops.tesseract_lstm),
                 ("tesseract_futura", imageops.tesseract_futura),
                 ("tesseract_only", imageops.tesseract_only),
-                ("tesseract_ttlakes_digits", overtrack.apex.ocr.tesseract_ttlakes_digits),
-                ("tesseract_ttlakes", overtrack.apex.ocr.tesseract_ttlakes),
-                ("tesseract_ttlakes_medium", overtrack.apex.ocr.tesseract_ttlakes_medium),
-                ("tesseract_arame", overtrack.apex.ocr.tesseract_arame),
-                ("tesseract_mensura", overtrack.apex.ocr.tesseract_mensura),
+                ("tesseract_ttlakes_digits", overtrack_cv.games.apex.ocr.tesseract_ttlakes_digits),
+                ("tesseract_ttlakes", overtrack_cv.games.apex.ocr.tesseract_ttlakes),
+                ("tesseract_ttlakes_medium", overtrack_cv.games.apex.ocr.tesseract_ttlakes_medium),
+                ("tesseract_arame", overtrack_cv.games.apex.ocr.tesseract_arame),
+                ("tesseract_mensura", overtrack_cv.games.apex.ocr.tesseract_mensura),
+                (
+                    "tesseract_ttlakes_digits_specials",
+                    overtrack_cv.games.apex.ocr.tesseract_ttlakes_digits_specials,
+                ),
+                (
+                    "tesseract_ttlakes_bold_digits_specials",
+                    overtrack_cv.games.apex.ocr.tesseract_ttlakes_bold_digits_specials,
+                ),
             ]:
                 imageops.tesser_ocr(im, scale=scale, blur=blur, invert=bool(invert), engine=engine, **kwargs)
                 table.append((name, engine.GetUTF8Text(), engine.AllWordConfidences()))
@@ -436,8 +444,7 @@ def tesser_ocr(im: np.ndarray, vscale: float = 3, **kwargs) -> None:
 
 
 def test_tesser_engines(image: np.ndarray, scale: float = 1.0) -> None:
-    import overtrack.apex.ocr
-    import overtrack.valorant.ocr
+    import overtrack_cv.games.apex.ocr
 
     if scale != 0:
         image = cv2.resize(image, (0, 0), fx=scale, fy=scale)
@@ -447,16 +454,19 @@ def test_tesser_engines(image: np.ndarray, scale: float = 1.0) -> None:
         ("tesseract_lstm", imageops.tesseract_lstm),
         ("tesseract_futura", imageops.tesseract_futura),
         ("tesseract_only", imageops.tesseract_only),
-        ("tesseract_ttlakes_digits", overtrack.apex.ocr.tesseract_ttlakes_digits),
-        ("tesseract_ttlakes", overtrack.apex.ocr.tesseract_ttlakes),
-        ("tesseract_ttlakes_medium", overtrack.apex.ocr.tesseract_ttlakes_medium),
-        ("tesseract_arame", overtrack.apex.ocr.tesseract_arame),
-        ("tesseract_mensura", overtrack.apex.ocr.tesseract_mensura),
-        ("tesseract_ttlakes_digits_specials", overtrack.apex.ocr.tesseract_ttlakes_digits_specials),
-        ("tesseract_ttlakes_bold_digits_specials", overtrack.apex.ocr.tesseract_ttlakes_bold_digits_specials),
-        ("din_next_regular_digits", overtrack.valorant.ocr.din_next_regular_digits),
-        ("din_next_regular", overtrack.valorant.ocr.din_next_regular),
-        ("din_next_combined", overtrack.valorant.ocr.din_next_combined),
+        ("tesseract_ttlakes_digits", overtrack_cv.games.apex.ocr.tesseract_ttlakes_digits),
+        ("tesseract_ttlakes", overtrack_cv.games.apex.ocr.tesseract_ttlakes),
+        ("tesseract_ttlakes_medium", overtrack_cv.games.apex.ocr.tesseract_ttlakes_medium),
+        ("tesseract_arame", overtrack_cv.games.apex.ocr.tesseract_arame),
+        ("tesseract_mensura", overtrack_cv.games.apex.ocr.tesseract_mensura),
+        ("tesseract_ttlakes_digits_specials", overtrack_cv.games.apex.ocr.tesseract_ttlakes_digits_specials),
+        (
+            "tesseract_ttlakes_bold_digits_specials",
+            overtrack_cv.games.apex.ocr.tesseract_ttlakes_bold_digits_specials,
+        ),
+        # ("din_next_regular_digits", overtrack_cv.games.apex.ocr.din_next_regular_digits),
+        # ("din_next_regular", overtrack_cv.apex.ocr.tesserac.din_next_regular),
+        # ("din_next_combined", overtrack_cv.apex.ocr.tesserac.din_next_combined),
     ]:
         if len(image.shape) == 2:
             height, width = image.shape

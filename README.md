@@ -1,7 +1,11 @@
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/dynamic/json?color=orange&label=all%20contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2Fovertrack-gg%2Fovertrack-cv%2Fmaster%2F.all-contributorsrc&style=flat-square)](#contributors-)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Discord chat](https://img.shields.io/badge/chat-on_discord-008080.svg?style=flat-square&logo=discord)](https://discord.gg/JywstAB)
 
+# overtrack-cv
+This is the local client code that handles Computer Vision/OCR for OverTrack, plus the game-specific processors that collect data for Apex Legends.
+
+For more info on using OverTrack, visit [overtrack.gg](https://overtrack.gg/)
 # overtrack-cv
 This is the local client code that handles Computer Vision/OCR for OverTrack, plus the game-specific processors that collect data for Apex Legends.
 

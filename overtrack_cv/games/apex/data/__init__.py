@@ -2,6 +2,7 @@ from overtrack_cv.games.apex.data._champions import Champion, champions
 from overtrack_cv.games.apex.data._map_locations import (
     MapLocations,
     kings_canyon_locations,
+    olympus_locations,
     worlds_edge_locations,
 )
 from overtrack_cv.games.apex.data._ranks import *
