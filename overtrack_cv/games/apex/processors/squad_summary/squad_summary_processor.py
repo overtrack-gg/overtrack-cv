@@ -2,12 +2,13 @@ import dataclasses
 import logging
 import os
 import pprint
+import string
 from typing import Optional, Tuple
 
 import cv2
 import numpy as np
 
-from overtrack_cv.core import imageops
+from overtrack_cv.core import imageops, textops
 from overtrack_cv.core.region_extraction import ExtractionRegionsCollection
 from overtrack_cv.core.textops import mmss_to_seconds
 from overtrack_cv.core.uploadable_image import lazy_upload
@@ -87,7 +88,7 @@ class SquadSummaryProcessor(Processor):
                 duos_shunt = duos_shunt_sum < 100
                 logger.debug(f"Got duos_shunt_sum={duos_shunt_sum} => duos_shunt={duos_shunt}")
                 if duos_shunt:
-                    shunt = 50
+                    shunt = 270
 
             frame.apex.squad_summary = SquadSummary(
                 champions=champions,
@@ -117,15 +118,6 @@ class SquadSummaryProcessor(Processor):
         yellowtext_image_g = np.max(yellowtext_image, axis=2)
         yellowtext_image_g = cv2.erode(yellowtext_image_g, np.ones((2, 2)))
 
-        # from overtrack_cv.util import  ps
-        # cv2.imshow('yellow', yellow)
-        # cv2.imshow('squad_kills_image', squad_kills_image)
-        # cv2.imshow('squad_kills_image_g', squad_kills_image_g)
-        # debugops.test_tesser_engines(squad_kills_image_g, scale=4)
-
-        # from overtrack_cv.util import debugops
-        # debugops.test_tesser_engines(yellowtext_image_g)
-
         text = imageops.tesser_ocr(
             yellowtext_image_g,
             engine=imageops.tesseract_lstm,
@@ -148,9 +140,7 @@ class SquadSummaryProcessor(Processor):
             return None
 
     def _process_player_stats(self, y: np.ndarray, duos: bool = False, shunt: int = 0) -> Tuple[PlayerStats, ...]:
-        prefix = "duos_" if duos else ""
-
-        name_images = self.REGIONS[prefix + "names"].shunt(x=shunt).extract(y)
+        name_images = self.REGIONS["names"].shunt(x=shunt).extract(y)
         names = []
         for im in name_images:
             # self._mask_components_touching_edges(im)
@@ -164,8 +154,6 @@ class SquadSummaryProcessor(Processor):
             im = cv2.resize(im, (0, 0), fx=2, fy=2)
             im = cv2.GaussianBlur(im, (0, 0), 1)
 
-            # cv2.imshow('name', im)
-            # cv2.waitKey(0)
             name = imageops.tesser_ocr(
                 im,
                 engine=imageops.tesseract_lstm,
@@ -180,7 +168,7 @@ class SquadSummaryProcessor(Processor):
                 logger.info(f"Using {name!r} instead")
             names.append(name)
 
-        stat_images = self.REGIONS[prefix + "stats"].shunt(x=shunt).extract(y)
+        stat_images = self.REGIONS["stats"].shunt(x=shunt).extract(y)
 
         # for im in stat_images:
         #     self._mask_components_touching_edges(im)
@@ -192,11 +180,13 @@ class SquadSummaryProcessor(Processor):
 
         for i in range(len(stats)):
             value = stats[i]
+            logger.debug(f"Got stat {i}: {value!r}")
             if value:
                 value = value.lower().replace(" ", "")
                 for c1, c2 in "l1", "i1", "o0", (":", ""):
                     value = value.replace(c1, c2)
-            if i <= 3:
+                value = textops.strip_string(value, string.digits + "/")
+            if i < 3:
                 try:
                     stats[i] = tuple([int(v) for v in value.split("/")])
                 except ValueError as e:
@@ -205,9 +195,8 @@ class SquadSummaryProcessor(Processor):
             elif 6 <= i <= 8:
                 # survival time
                 if stats[i] is not None:
-                    seconds_s = value.replace(":", "")
                     try:
-                        seconds = int(seconds_s)
+                        seconds = int(value)
                     except ValueError as e:
                         logger.warning(f'Could not parse "{stats[i]}" as int: {e}')
                         seconds = None
@@ -225,7 +214,7 @@ class SquadSummaryProcessor(Processor):
         # typing: ignore
         # noinspection PyTypeChecker
         count = 3 if not duos else 2
-        r = tuple([PlayerStats(names[i], *stats[i::count]) for i in range(count)])
+        r = tuple([PlayerStats(names[i], *stats[i::3]) for i in range(count)])
 
         for s in r:
             if not s.kills:
