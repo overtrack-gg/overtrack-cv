@@ -53,7 +53,9 @@ for i in range(len(SeasonData)):
 	else: ranked = False
 	if i > 2: duos = True
 	else: duos = False
-	seasons[i] = Season(i, season_start, season_end,  ranked, duos, SName)
+	if i > 8: arenas = True
+	else: arenas = False
+	seasons[i] = Season(i, season_start, season_end,  ranked, duos, arenas, SName)
 
 
 current_season = sorted([s for s in seasons if s.index < 100], key=lambda s: s.end)[-1]
