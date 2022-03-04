@@ -22,6 +22,7 @@ class Season:
     end: float
     has_ranked: bool = True
     has_duos: bool = True
+    has_arenas: bool = True
     season_name: Optional[str] = None
 
     @property
