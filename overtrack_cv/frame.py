@@ -40,9 +40,7 @@ for f in fields(ApexFrameData):
     _DIE.append(f.name)
 
 try:
-    from overtrack_cv_private.games.overwatch.overwatch_frame_data import (
-        OverwatchFrameData,
-    )
+    from overtrack_cv.games.overwatch.overwatch_frame_data import OverwatchFrameData
 
     for f in fields(OverwatchFrameData):
         _DIE.append(f.name)
@@ -85,15 +83,11 @@ class Frame(Dict[str, Any]):
 
         apex: ApexFrameData
 
-        from overtrack_cv_private.games.overwatch.overwatch_frame_data import (
-            OverwatchFrameData,
-        )
+        from overtrack_cv.games.overwatch.overwatch_frame_data import OverwatchFrameData
 
         overwatch: OverwatchFrameData
 
-        from overtrack_cv_private.games.valorant.valorant_frame_data import (
-            ValorantFrameData,
-        )
+        from overtrack_cv.games.valorant.valorant_frame_data import ValorantFrameData
 
         valorant: ValorantFrameData
 

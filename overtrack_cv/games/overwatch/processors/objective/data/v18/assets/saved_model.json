@@ -1,0 +1,2900 @@
+{
+  "class_name": "Model",
+  "config": {
+    "name": "model",
+    "layers": [
+      {
+        "name": "image",
+        "class_name": "InputLayer",
+        "config": {
+          "batch_input_shape": [
+            null,
+            250,
+            620,
+            3
+          ],
+          "dtype": "float32",
+          "sparse": false,
+          "name": "image"
+        },
+        "inbound_nodes": []
+      },
+      {
+        "name": "image/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "image/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "image",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "global_conv1/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "global_conv1/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 8,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "image/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "global_conv1/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "global_conv1/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv1/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "global_conv2/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "global_conv2/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 16,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv1/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "global_conv2/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "global_conv2/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv2/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "global_conv3/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "global_conv3/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 1,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv2/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "global_conv3/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "global_conv3/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_area",
+        "class_name": "Cropping2D",
+        "config": {
+          "name": "checkpoint_status_area",
+          "trainable": true,
+          "dtype": "float32",
+          "cropping": [
+            [
+              62,
+              148
+            ],
+            [
+              140,
+              140
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "details_area",
+        "class_name": "Cropping2D",
+        "config": {
+          "name": "details_area",
+          "trainable": true,
+          "dtype": "float32",
+          "cropping": [
+            [
+              110,
+              0
+            ],
+            [
+              130,
+              130
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_area",
+        "class_name": "Cropping2D",
+        "config": {
+          "name": "koth_area",
+          "trainable": true,
+          "dtype": "float32",
+          "cropping": [
+            [
+              85,
+              60
+            ],
+            [
+              250,
+              250
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "left_score_area",
+        "class_name": "Cropping2D",
+        "config": {
+          "name": "left_score_area",
+          "trainable": true,
+          "dtype": "float32",
+          "cropping": [
+            [
+              50,
+              150
+            ],
+            [
+              110,
+              400
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "right_score_area",
+        "class_name": "Cropping2D",
+        "config": {
+          "name": "right_score_area",
+          "trainable": true,
+          "dtype": "float32",
+          "cropping": [
+            [
+              50,
+              150
+            ],
+            [
+              400,
+              110
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv1/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "checkpoint_status_conv1/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 8,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_area",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv1/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "checkpoint_details_conv1/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 8,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "details_area",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv1/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "koth_conv1/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 8,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_area",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv1/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "score_conv1/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 8,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "left_score_area",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "right_score_area",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv1/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "checkpoint_status_conv1/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "strides": [
+            2,
+            2
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv1/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv1/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "checkpoint_details_conv1/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "strides": [
+            2,
+            2
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv1/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv1/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "koth_conv1/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "strides": [
+            2,
+            2
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv1/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv1/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "score_conv1/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "strides": [
+            2,
+            2
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv1/conv",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv1/conv",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv1/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "checkpoint_status_conv1/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv1/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "cropping2d",
+        "class_name": "Cropping2D",
+        "config": {
+          "name": "cropping2d",
+          "trainable": true,
+          "dtype": "float32",
+          "cropping": [
+            [
+              45,
+              55
+            ],
+            [
+              65,
+              400
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "global_conv3/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv1/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "checkpoint_details_conv1/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv1/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv1/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "koth_conv1/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv1/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv1/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "score_conv1/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv1/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv1/maxpool",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv2/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "checkpoint_status_conv2/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 16,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv1/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv1/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "competitive_conv1/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 8,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "cropping2d",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv2/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "checkpoint_details_conv2/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv1/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv2/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "koth_conv2/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 16,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv1/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv2/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "score_conv2/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv1/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv1/batchnorm",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv2/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "checkpoint_status_conv2/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            12,
+            16
+          ],
+          "padding": "valid",
+          "strides": [
+            12,
+            16
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv2/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv1/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "competitive_conv1/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            3,
+            3
+          ],
+          "padding": "valid",
+          "strides": [
+            3,
+            3
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv1/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv2/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "checkpoint_details_conv2/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            67,
+            177
+          ],
+          "padding": "valid",
+          "strides": [
+            67,
+            177
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv2/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv2/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "koth_conv2/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            49,
+            4
+          ],
+          "padding": "same",
+          "strides": [
+            49,
+            4
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv2/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv2/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "score_conv2/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            5,
+            52
+          ],
+          "padding": "valid",
+          "strides": [
+            5,
+            52
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv2/conv",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv2/conv",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv2/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "checkpoint_status_conv2/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv2/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv1/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "competitive_conv1/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv1/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv2/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "checkpoint_details_conv2/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv2/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv2/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "koth_conv2/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv2/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv2/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "score_conv2/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv2/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv2/maxpool",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_status_conv2/flatten",
+        "class_name": "Flatten",
+        "config": {
+          "name": "checkpoint_status_conv2/flatten",
+          "trainable": true,
+          "dtype": "float32",
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv2/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv2/conv",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "competitive_conv2/conv",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            5,
+            5
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv1/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_conv2/flatten",
+        "class_name": "Flatten",
+        "config": {
+          "name": "checkpoint_details_conv2/flatten",
+          "trainable": true,
+          "dtype": "float32",
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv2/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_conv2/flatten",
+        "class_name": "Flatten",
+        "config": {
+          "name": "koth_conv2/flatten",
+          "trainable": true,
+          "dtype": "float32",
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv2/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_conv2/flatten",
+        "class_name": "Flatten",
+        "config": {
+          "name": "score_conv2/flatten",
+          "trainable": true,
+          "dtype": "float32",
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv2/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv2/batchnorm",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_mode_fc1/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "checkpoint_mode_fc1/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 64,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_status_conv2/flatten",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv2/maxpool",
+        "class_name": "MaxPooling2D",
+        "config": {
+          "name": "competitive_conv2/maxpool",
+          "trainable": true,
+          "dtype": "float32",
+          "pool_size": [
+            45,
+            47
+          ],
+          "padding": "valid",
+          "strides": [
+            45,
+            47
+          ],
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv2/conv",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_fc1/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "checkpoint_details_fc1/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 64,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_conv2/flatten",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_fc1_1/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "koth_fc1_1/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 64,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_conv2/flatten",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_fc1/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "score_fc1/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 128,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_conv2/flatten",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_conv2/flatten",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_mode_fc1/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "checkpoint_mode_fc1/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.25,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_mode_fc1/dense",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv2/batchnorm",
+        "class_name": "BatchNormalization",
+        "config": {
+          "name": "competitive_conv2/batchnorm",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "gamma_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "moving_mean_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "moving_variance_initializer": {
+            "class_name": "Ones",
+            "config": {}
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv2/maxpool",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_fc1/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "checkpoint_details_fc1/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.25,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_fc1/dense",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_fc1/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "koth_fc1/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.25,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_fc1_1/dense",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_fc1/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "score_fc1/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.25,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_fc1/dense",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_fc1/dense",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_mode_fc2/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "checkpoint_mode_fc2/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 32,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_mode_fc1/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_conv2/flatten",
+        "class_name": "Flatten",
+        "config": {
+          "name": "competitive_conv2/flatten",
+          "trainable": true,
+          "dtype": "float32",
+          "data_format": "channels_last"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv2/batchnorm",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_fc2/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "checkpoint_details_fc2/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 32,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_fc1/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_fc2/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "koth_fc2/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 32,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_fc1/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_fc2/dense",
+        "class_name": "Dense",
+        "config": {
+          "name": "score_fc2/dense",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 64,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_fc1/dropout",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_fc1/dropout",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_mode_fc2/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "checkpoint_mode_fc2/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.1,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_mode_fc2/dense",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive_fc1",
+        "class_name": "Dense",
+        "config": {
+          "name": "competitive_fc1",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 64,
+          "activation": "relu",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_conv2/flatten",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_details_fc2/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "checkpoint_details_fc2/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.1,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_fc2/dense",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_fc2/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "koth_fc2/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.1,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_fc2/dense",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score_fc2/dropout",
+        "class_name": "Dropout",
+        "config": {
+          "name": "score_fc2/dropout",
+          "trainable": true,
+          "dtype": "float32",
+          "rate": 0.1,
+          "noise_shape": null,
+          "seed": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_fc2/dense",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_fc2/dense",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_state",
+        "class_name": "Dense",
+        "config": {
+          "name": "checkpoint_state",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 9,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_mode_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "competitive",
+        "class_name": "Dense",
+        "config": {
+          "name": "competitive",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 2,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "competitive_fc1",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "contested",
+        "class_name": "Dense",
+        "config": {
+          "name": "contested",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 2,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "checkpoint_mode",
+        "class_name": "Dense",
+        "config": {
+          "name": "checkpoint_mode",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 3,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_mode_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "payload_direction",
+        "class_name": "Dense",
+        "config": {
+          "name": "payload_direction",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 3,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "controlpoint_ticks",
+        "class_name": "Dense",
+        "config": {
+          "name": "controlpoint_ticks",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 3,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "checkpoint_details_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_map",
+        "class_name": "Dense",
+        "config": {
+          "name": "koth_map",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 4,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "koth_owner",
+        "class_name": "Dense",
+        "config": {
+          "name": "koth_owner",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 3,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "koth_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "score",
+        "class_name": "Dense",
+        "config": {
+          "name": "score",
+          "trainable": true,
+          "dtype": "float32",
+          "units": 22,
+          "activation": "softmax",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "score_fc2/dropout",
+              0,
+              0,
+              {}
+            ]
+          ],
+          [
+            [
+              "score_fc2/dropout",
+              1,
+              0,
+              {}
+            ]
+          ]
+        ]
+      }
+    ],
+    "input_layers": [
+      [
+        "image",
+        0,
+        0
+      ]
+    ],
+    "output_layers": [
+      [
+        "checkpoint_state",
+        0,
+        0
+      ],
+      [
+        "competitive",
+        0,
+        0
+      ],
+      [
+        "contested",
+        0,
+        0
+      ],
+      [
+        "checkpoint_mode",
+        0,
+        0
+      ],
+      [
+        "payload_direction",
+        0,
+        0
+      ],
+      [
+        "controlpoint_ticks",
+        0,
+        0
+      ],
+      [
+        "koth_map",
+        0,
+        0
+      ],
+      [
+        "koth_owner",
+        0,
+        0
+      ],
+      [
+        "score",
+        0,
+        0
+      ],
+      [
+        "score",
+        1,
+        0
+      ]
+    ]
+  },
+  "keras_version": "2.2.4-tf",
+  "backend": "tensorflow"
+}

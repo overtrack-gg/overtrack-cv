@@ -1,0 +1,157 @@
+{
+  "class_name": "Model",
+  "config": {
+    "name": "model",
+    "layers": [
+      {
+        "name": "images",
+        "class_name": "InputLayer",
+        "config": {
+          "batch_input_shape": [
+            null,
+            25,
+            23
+          ],
+          "dtype": "float32",
+          "sparse": false,
+          "name": "images"
+        },
+        "inbound_nodes": []
+      },
+      {
+        "name": "reshape",
+        "class_name": "Reshape",
+        "config": {
+          "name": "reshape",
+          "trainable": true,
+          "dtype": "float32",
+          "target_shape": [
+            25,
+            23,
+            1
+          ]
+        },
+        "inbound_nodes": [
+          [
+            [
+              "images",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "conv1",
+        "class_name": "Conv2D",
+        "config": {
+          "name": "conv1",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 35,
+          "kernel_size": [
+            23,
+            21
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            }
+          },
+          "bias_initializer": {
+            "class_name": "Zeros",
+            "config": {}
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "inbound_nodes": [
+          [
+            [
+              "reshape",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "max_along_dims",
+        "class_name": "MaxAlongDims",
+        "config": {
+          "name": "max_along_dims",
+          "trainable": true,
+          "dtype": "float32",
+          "dims": [
+            1,
+            2
+          ]
+        },
+        "inbound_nodes": [
+          [
+            [
+              "conv1",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "activation",
+        "class_name": "Activation",
+        "config": {
+          "name": "activation",
+          "trainable": true,
+          "dtype": "float32",
+          "activation": "softmax"
+        },
+        "inbound_nodes": [
+          [
+            [
+              "max_along_dims",
+              0,
+              0,
+              {}
+            ]
+          ]
+        ]
+      }
+    ],
+    "input_layers": [
+      [
+        "images",
+        0,
+        0
+      ]
+    ],
+    "output_layers": [
+      [
+        "activation",
+        0,
+        0
+      ]
+    ]
+  },
+  "keras_version": "2.2.4-tf",
+  "backend": "tensorflow"
+}

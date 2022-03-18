@@ -3,8 +3,6 @@ import bz2
 from dataclasses import dataclass
 from typing import Any, Dict, NamedTuple, Optional, Type, TypeVar, Union
 
-from overtrack_cv_private.games.overwatch.overwatch_frame_data import OverwatchFrameData
-from overtrack_cv_private.games.valorant.valorant_frame_data import ValorantFrameData
 from overtrack_models.dataclasses.typedload.referenced_typedload import (
     ReferencedDumper,
     ReferencedLoader,
@@ -15,6 +13,8 @@ from overtrack_cv.capture.shmem import SharedMemorySource
 from overtrack_cv.core.uploadable_image import UploadableImage, UploadedImage
 from overtrack_cv.frame import CurrentGame, Frame, SerializableArray
 from overtrack_cv.games.apex.apex_frame_data import ApexFrameData
+from overtrack_cv.games.overwatch.overwatch_frame_data import OverwatchFrameData
+from overtrack_cv.games.valorant.valorant_frame_data import ValorantFrameData
 
 T = TypeVar("T")
 

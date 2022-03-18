@@ -44,15 +44,11 @@ def test_processor(
 
         game_data_factory = ApexFrameData
     elif game == "valorant":
-        from overtrack_cv_private.games.valorant.valorant_frame_data import (
-            ValorantFrameData,
-        )
+        from overtrack_cv.games.valorant.valorant_frame_data import ValorantFrameData
 
         game_data_factory = ValorantFrameData
     elif game == "overwatch":
-        from overtrack_cv_private.games.overwatch.overwatch_frame_data import (
-            OverwatchFrameData,
-        )
+        from overtrack_cv.games.overwatch.overwatch_frame_data import OverwatchFrameData
 
         game_data_factory = OverwatchFrameData
 
